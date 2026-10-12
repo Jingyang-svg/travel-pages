@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>曼谷 × 普吉 · YY & BB 的泰国之旅</title>
+<style>
+  :root{
+    --bg:#f4f0e6; --surface:#fffdf7; --ink:#22312e; --soft:#5d6a65;
+    --line:#ddd6c5; --teal:#0e7c7b; --orange:#c8632a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .wrap{width:100%;max-width:560px;text-align:center}
+  .kicker{font-size:13px;letter-spacing:.3em;color:var(--soft);text-transform:uppercase;margin-bottom:14px}
+  h1{font-family:Georgia,"Songti SC",serif;font-size:34px;line-height:1.2;margin-bottom:8px}
+  .sub{color:var(--soft);font-size:15px;margin-bottom:36px}
+  .cards{display:flex;flex-direction:column;gap:16px}
+  a.card{
+    display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:24px;text-decoration:none;color:var(--ink);text-align:left;
+    box-shadow:0 2px 10px rgba(34,49,46,.06);transition:transform .15s,box-shadow .15s;
+  }
+  a.card:active{transform:scale(.99)}
+  a.card .tag{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--teal)}
+  a.card.orange .tag{color:var(--orange)}
+  a.card h2{font-family:Georgia,"Songti SC",serif;font-size:22px;margin:6px 0 4px}
+  a.card p{font-size:14px;color:var(--soft);line-height:1.5}
+  a.card .go{display:inline-block;margin-top:14px;font-size:14px;font-weight:600}
+  a.card .go:after{content:" →"}
+  .foot{margin-top:36px;font-size:12.5px;color:var(--soft)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">Bangkok × Phuket</div>
+    <h1>泰国之旅</h1>
+    <div class="sub">YY &amp; BB · 6 天 5 晚 · 2026.10</div>
+    <div class="cards">
+      <a class="card" href="guide.html">
+        <div class="tag">出发前</div>
+        <h2>行程攻略手册</h2>
+        <p>每日行程、倒计时、手绘路线地图、一键导航与地点介绍。</p>
+        <span class="go">打开攻略</span>
+      </a>
+      <a class="card orange" href="book.html">
+        <div class="tag">归来后</div>
+        <h2>旅行纪念册</h2>
+        <p>这一路的照片与故事，翻开慢慢看。</p>
+        <span class="go">打开纪念册</span>
+      </a>
+    </div>
+    <div class="foot">单文件 · 离线可看 · 手机友好</div>
+  </div>
+</body>
+</html>
