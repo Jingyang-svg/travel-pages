@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>曼谷 × 普吉 · 旅行纪念册</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232E6E68'/%3E%3Ccircle cx='16' cy='16' r='7.2' fill='none' stroke='%23ECE8DF' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23E07A5F'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Serif+Display&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+/* ============ 设计 Token ============ */
+:root{
+  --paper:#ECE8DF; --paper-2:#E4DFD3; --paper-3:#DCD6C8;
+  --ink:#211F1A; --ink-soft:#5B564B; --ink-faint:#857E6F;
+  --line:#C7BFAF; --line-soft:#D5CFBF;
+  --teal:#2E6E68; --teal-deep:#1E4E49; --teal-soft:#DCE8E4;
+  --cinnabar:#C2543A;
+  --shadow:0 14px 40px -18px rgba(33,31,26,.45);
+  --serif-cn:"Noto Serif SC",serif;
+  --sans-cn:"Noto Sans SC",system-ui,sans-serif;
+  --disp:"DM Serif Display","Noto Serif SC",serif;
+  --spec:"Spectral","Noto Serif SC",serif;
+}
+[data-theme="dark"]{
+  --paper:#181714; --paper-2:#211F1A; --paper-3:#292722;
+  --ink:#EAE5D8; --ink-soft:#A29C8D; --ink-faint:#767063;
+  --line:#35332B; --line-soft:#2B2923;
+  --teal:#74B8B0; --teal-deep:#8FC9C1; --teal-soft:#24342F;
+  --cinnabar:#E07A5F;
+  --shadow:0 16px 44px -16px rgba(0,0,0,.7);
+}
+/* ============ Reset ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans-cn);font-weight:400;line-height:1.75;
+  font-size:16px;letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .5s ease,color .5s ease;
+}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--teal);color:var(--paper)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+/* 胶片颗粒 */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;mix-blend-mode:multiply}
+[data-theme="dark"] .grain{mix-blend-mode:screen;opacity:.07}
+/* 主题切换 */
+.theme-btn{position:fixed;top:18px;right:18px;z-index:70;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--paper) 80%,transparent);
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.theme-btn svg{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:1.6}
+/* ============ 封面 ============ */
+.cover{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+  padding:clamp(28px,6vw,64px);position:relative;overflow:hidden}
+.cover .kicker{font-family:var(--sans-cn);font-size:12px;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:500}
+.cover .kicker .dot{color:var(--cinnabar);margin:0 .5em}
+.cover-main{margin:auto 0;padding:6vh 0}
+.cover h1{font-family:var(--disp);font-weight:400;line-height:.98;
+  font-size:clamp(34px,10.5vw,130px);letter-spacing:-.01em}
+.cover h1 .cn{display:block;font-family:var(--serif-cn);font-weight:900;
+  font-size:clamp(38px,8.6vw,96px);letter-spacing:.06em;margin-top:.12em}
+.cover h1 .x{color:var(--cinnabar);font-style:italic;padding:0 .04em}
+.cover .meta-row{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:baseline;margin-top:clamp(28px,5vh,52px)}
+.cover .range{font-family:var(--spec);font-size:clamp(17px,2.4vw,22px);color:var(--ink)}
+.cover .tag{font-size:13px;letter-spacing:.18em;color:var(--ink-soft);font-weight:500;
+  border:1px solid var(--line);padding:5px 13px;border-radius:40px}
+.cover-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+  border-top:1px solid var(--line);padding-top:20px}
+.cover-foot .authors{font-family:var(--serif-cn);font-weight:700;font-size:clamp(18px,2.6vw,24px);letter-spacing:.08em}
+.cover-foot .hint{font-size:12px;color:var(--ink-faint);letter-spacing:.14em;text-align:right} .cover-couple{flex:1 1 auto;display:flex;justify-content:center;align-items:flex-end;min-width:0} .cover-couple img{height:clamp(60px,8.5vw,92px);width:auto;display:block}[data-theme="dark"] .cover-couple img{filter:invert(1)}
+.cover .wave{position:absolute;right:0;bottom:16vh;width:clamp(180px,30vw,400px);opacity:.55;
+  fill:none;stroke:var(--teal);stroke-width:1.4}
+.cover .kicker,.cover-main,.cover-foot{animation:rise .95s cubic-bezier(.22,1,.36,1) both}
+.cover-main{animation-delay:.12s}.cover-foot{animation-delay:.26s}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+/* ============ 章节（每天） ============ */
+.day{padding:clamp(56px,10vh,108px) clamp(20px,6vw,64px);max-width:1180px;margin:0 auto;border-top:1px solid var(--line)}
+.day-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:clamp(22px,4vh,38px)}
+.day-d{font-family:var(--disp);font-size:clamp(30px,5vw,46px);color:var(--teal);line-height:1}
+.day-date{font-family:var(--spec);font-size:clamp(17px,2.4vw,21px)}
+.day-city{font-size:12px;letter-spacing:.22em;color:var(--ink-soft);border:1px solid var(--line);
+  padding:3px 11px;border-radius:30px;margin-left:auto}
+.day-title{font-family:var(--serif-cn);font-weight:700;font-size:clamp(25px,4.6vw,42px);letter-spacing:.04em;margin-bottom:10px}
+.hero-slot{margin:6px 0 clamp(26px,5vh,42px)}
+.day-story{font-family:var(--spec);font-size:clamp(17px,2.4vw,20px);line-height:1.95;max-width:62ch;margin-bottom:18px}
+.day-story .drop{font-family:var(--disp);font-size:3.1em;float:left;line-height:.82;padding:.05em .12em 0 0;color:var(--cinnabar)}
+.story-pending{font-family:var(--spec);font-style:italic;color:var(--ink-faint);border-left:2px solid var(--cinnabar);
+  padding:6px 0 6px 16px;font-size:15px;max-width:52ch;margin-bottom:18px}
+.day-places{font-size:14px;letter-spacing:.05em;color:var(--ink-soft);line-height:1.95;margin-bottom:clamp(26px,4vh,38px)}
+.day-places b{color:var(--teal);font-weight:500;margin-right:5px}
+/* 碎片小事折叠 */
+.bits{margin:4px 0 22px;border:1px solid var(--line);border-radius:6px;background:var(--paper-2);padding:0 16px}
+.bits summary{cursor:pointer;padding:13px 0;font-size:14px;letter-spacing:.1em;color:var(--teal-deep);
+  display:flex;justify-content:space-between;align-items:center;list-style:none}
+[data-theme="dark"] .bits summary{color:var(--teal)}
+.bits summary::-webkit-details-marker{display:none}
+.bits summary::after{content:"+";font-size:19px;color:var(--ink-faint);line-height:1}
+.bits[open] summary::after{content:"−"}
+.bits ul{list-style:none;padding:2px 0 15px;display:grid;gap:9px}
+.bits li{position:relative;padding-left:19px;font-size:14px;color:var(--ink-soft);line-height:1.7}
+.bits li::before{content:"";position:absolute;left:2px;top:.74em;width:6px;height:1.5px;background:var(--cinnabar)}
+/* 照片网格 */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,1.5vw,18px);grid-auto-flow:dense}
+.photo{position:relative;overflow:hidden;border-radius:3px;background:var(--paper-3);cursor:zoom-in}
+.photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;transition:transform .5s ease}
+.photo:hover img{transform:scale(1.045)}
+.photo .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 9px;font-size:12px;color:#fff;
+  background:linear-gradient(transparent,rgba(0,0,0,.62));opacity:0;transition:opacity .3s}
+.photo:hover .cap{opacity:1}
+.photo.w-2{grid-column:span 2}.photo.w-3{grid-column:span 3}.photo.w-4{grid-column:span 4}.photo.w-6{grid-column:span 6}
+.photo.landscape img{aspect-ratio:4/3}.photo.wide img,.photo.w-6 img{aspect-ratio:16/9}
+/* 待冲印胶片位 */
+.slot{position:relative;border:1px dashed var(--line);background:var(--paper-2);border-radius:3px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  min-height:170px;color:var(--ink-faint);padding:24px;text-align:center}
+.slot::before,.slot::after{content:"";position:absolute;left:0;right:0;height:10px;
+  background:repeating-linear-gradient(90deg,var(--paper) 0 8px,transparent 8px 16px)}
+.slot::before{top:-1px}.slot::after{bottom:-1px}
+.slot svg{width:30px;height:30px;fill:none;stroke:var(--teal);stroke-width:1.4}
+.slot .lab{font-size:12px;letter-spacing:.16em}
+.slot.hero{min-height:clamp(280px,50vw,500px)}
+.slot.hero .big{font-family:var(--serif-cn);font-size:clamp(20px,3vw,28px);color:var(--ink-soft);font-weight:600}
+.slot.w-2{grid-column:span 2}.slot.w-3{grid-column:span 3}.slot.w-4{grid-column:span 4}.slot.w-6{grid-column:span 6}
+/* ============ 万能专栏 ============ */
+.section{padding:clamp(64px,11vh,118px) clamp(20px,6vw,64px);max-width:1180px;margin:0 auto;border-top:1px solid var(--line)}
+.sec-kicker{display:flex;align-items:baseline;gap:16px;margin-bottom:clamp(28px,5vh,50px)}
+.sec-kicker .no{font-family:var(--disp);font-size:clamp(26px,4vw,40px);color:var(--cinnabar)}
+.sec-kicker h2{font-family:var(--serif-cn);font-weight:700;font-size:clamp(23px,4.4vw,38px);letter-spacing:.05em}
+.best{position:relative;border-radius:4px;overflow:hidden;cursor:zoom-in;background:var(--paper-3)}
+.best img{width:100%;max-height:86vh;object-fit:cover}
+.best .cap{padding:15px 4px;font-family:var(--spec);font-style:italic;color:var(--ink-soft);font-size:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.stat{background:var(--paper);padding:clamp(24px,4vw,42px) clamp(18px,3vw,32px)}
+.stat .n{font-family:var(--disp);font-size:clamp(32px,6vw,58px);line-height:1;color:var(--teal-deep)}
+[data-theme="dark"] .stat .n{color:var(--teal)}
+.stat .label{font-size:13px;color:var(--ink-soft);margin-top:11px;letter-spacing:.05em}
+.stat.wide{grid-column:span 2}
+.quotes{display:flex;flex-direction:column;gap:clamp(28px,5vh,46px)}
+.quote blockquote{font-family:var(--serif-cn);font-weight:600;font-size:clamp(20px,3.4vw,31px);line-height:1.55;max-width:24ch}
+.quote blockquote::before{content:"“";color:var(--cinnabar);font-family:var(--disp);font-size:1.35em;margin-right:.04em}
+.quote blockquote::after{content:"”";color:var(--cinnabar);font-family:var(--disp);font-size:1.35em;margin-left:.02em}
+.quote figcaption{font-size:13px;color:var(--ink-faint);margin-top:9px;letter-spacing:.1em} .quote blockquote.one-line{white-space:nowrap;max-width:none;margin-left:auto;margin-right:auto;text-align:center;font-size:clamp(13px,3.6vw,26px);line-height:1.3} .smiles{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(10px,2.6vw,24px);margin-top:clamp(26px,5vh,42px)} .smile{width:clamp(30px,7.5vw,42px);height:auto;color:var(--teal-deep);fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}[data-theme="dark"] .smile{color:var(--teal)}
+.capsule{background:var(--teal-soft);border-radius:6px;padding:clamp(32px,6vw,60px);display:grid;gap:16px}
+.capsule .q{font-family:var(--serif-cn);font-weight:700;font-size:clamp(21px,3.4vw,30px)}
+.capsule .a{font-family:var(--spec);font-size:clamp(18px,2.6vw,22px);color:var(--teal-deep);min-height:1.5em}
+[data-theme="dark"] .capsule .a{color:var(--teal)}
+.capsule .a.empty{color:var(--ink-faint);font-style:italic}
+/* ============ 结尾 ============ */
+.ending{min-height:68vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:clamp(48px,9vh,96px) clamp(24px,6vw,64px);gap:22px;border-top:1px solid var(--line)}
+.ending .line-word{font-family:var(--serif-cn);font-weight:700;font-size:clamp(25px,5vw,50px);line-height:1.4;max-width:20ch}
+.ending .fin{font-family:var(--disp);font-size:clamp(20px,3vw,28px);color:var(--cinnabar)}
+.ending .small{font-size:12px;letter-spacing:.2em;color:var(--ink-faint)}
+/* ============ 灯箱 ============ */
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(15,14,11,.95);display:none;align-items:center;justify-content:center;padding:clamp(14px,4vw,48px)}
+.lightbox.open{display:flex;animation:fade .28s ease}
+@keyframes fade{from{opacity:0}}
+.lightbox img{max-width:100%;max-height:80vh;border-radius:3px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb-cap{position:absolute;bottom:clamp(18px,4vh,38px);left:0;right:0;text-align:center;color:#ECE8DF;font-family:var(--spec);font-size:15px;font-style:italic;padding:0 24px}
+.lb-btn{position:absolute;z-index:2;width:48px;height:48px;border-radius:50%;color:#ECE8DF;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-btn:hover{background:rgba(255,255,255,.12)}
+.lb-btn svg{width:24px;height:24px;fill:none;stroke:#ECE8DF;stroke-width:1.6}
+.lb-close{top:18px;right:18px}.lb-prev{left:12px;top:50%;transform:translateY(-50%)}.lb-next{right:12px;top:50%;transform:translateY(-50%)}
+.lb-count{position:absolute;top:24px;left:24px;font-size:13px;letter-spacing:.14em;color:#B7B0A0}
+/* ============ 响应式 ============ */
+@media(max-width:760px){
+  .grid{grid-template-columns:repeat(4,1fr)}
+  .photo.w-3,.photo.w-4,.photo.w-6{grid-column:span 4}
+  .slot.w-2,.slot.w-3,.slot.w-4,.slot.w-6{grid-column:span 4}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .day-city{margin-left:0}
+  .cover-foot{flex-direction:column;align-items:flex-start;gap:10px}.cover-foot .hint{text-align:left}.cover-couple{width:100%;justify-content:flex-start;flex:none}.cover-couple img{height:70px}
+  .lb-prev{left:2px}.lb-next{right:2px}
+}
+@media(max-width:420px){.stats{grid-template-columns:1fr}.stat.wide{grid-column:auto}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ========== 五项增强：追加样式 ========== */
+/* --- 手绘地图配色（按天柔和，胶片纸感） --- */
+:root{
+  --c1:#BE9650; --c2:#7E95A8; --c3:#4C92A5; --c4:#8B9A5E; --c5:#2E6E68; --c6:#BE563E;
+  --accent:#2E6E68;
+  --map-bg:#E9E4D8; --sea:#D3E0DD; --land:#F0EBE1; --coast:#B5C5C1; --river:#B2C9C4;
+  --surface:#ECE8DF; --map-fly:#928B7C;
+}
+[data-theme="dark"]{
+  --c1:#D4AE68; --c2:#94ABBD; --c3:#66AABD; --c4:#A3B175; --c5:#74B8B0; --c6:#E07A5F;
+  --accent:#74B8B0;
+  --map-bg:#201E1A; --sea:#1B2928; --land:#26241F; --coast:#3C4A47; --river:#314F49;
+  --surface:#211F1A; --map-fly:#867F71;
+}
+/* --- 封面磨砂背景（最佳一张） --- */
+.cover-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.cover-bg img{width:100%;height:100%;object-fit:cover;
+  filter:blur(38px) saturate(.95) brightness(1.02);transform:scale(1.18);opacity:.68}
+.cover-bg-veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--paper) 76%,transparent),
+  color-mix(in srgb,var(--paper) 58%,transparent) 46%,color-mix(in srgb,var(--paper) 82%,transparent))}
+[data-theme="dark"] .cover-bg img{opacity:.5}
+[data-theme="dark"] .cover-bg-veil{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--paper) 84%,transparent),
+  color-mix(in srgb,var(--paper) 70%,transparent) 46%,color-mix(in srgb,var(--paper) 86%,transparent))}
+.cover .kicker,.cover-mid,.cover .cover-foot{position:relative;z-index:2}
+/* --- 封面中块（标题 + 总览图） --- */
+.cover-mid{margin:auto 0;width:100%;display:flex;flex-direction:column;
+  gap:clamp(16px,3vh,36px)}
+.cover .cover-main{margin:0;padding:0}
+.cover .wave{z-index:1;opacity:.3}
+/* --- 双城手绘总览图 --- */
+.ovmap{width:100%;max-width:1000px;margin:0 auto}
+.ovmap-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.ovmap-tab{font-size:12px;letter-spacing:.12em;padding:6px 18px;border-radius:30px;
+  border:1px solid var(--line);color:var(--ink-soft);
+  background:color-mix(in srgb,var(--paper) 58%,transparent);transition:all .25s}
+.ovmap-tab.active{background:var(--teal);border-color:var(--teal);color:var(--paper)}
+.ovmap-box{border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative;
+  background:color-mix(in srgb,var(--paper) 50%,transparent);box-shadow:var(--shadow);
+  aspect-ratio:1000/467;height:auto}
+.ovmap-box.city-pk{aspect-ratio:900/900}
+.ovmap-box svg{width:100%;height:100%;display:block}
+.ovmap-legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:14px}
+.ovmap-legend span{font-size:11px;letter-spacing:.04em;color:var(--ink-soft);
+  display:inline-flex;align-items:center;gap:6px}
+.ovmap-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.map-lbl{font-family:var(--sans-cn);font-size:15px;fill:var(--ink);font-weight:500}
+.map-flytxt{font-family:var(--sans-cn);font-size:14px;fill:var(--map-fly);letter-spacing:.03em}
+.map-n{font-family:var(--disp);font-size:18px;fill:var(--ink-soft)}
+.mp,.map-lbl{cursor:default}
+/* --- 每日整体折叠 --- */
+.day-fold{border-radius:8px}
+.day-summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:8px 16px;position:relative;padding-right:48px}
+.day-summary::-webkit-details-marker{display:none}
+.day-summary .day-d{font-family:var(--disp);font-size:clamp(30px,5vw,46px);color:var(--teal);line-height:1}
+.day-summary .day-date{font-family:var(--spec);font-size:clamp(17px,2.4vw,21px)}
+.day-summary .day-city{font-size:12px;letter-spacing:.22em;color:var(--ink-soft);
+  border:1px solid var(--line);padding:3px 11px;border-radius:30px;margin-left:auto}
+.day-summary .day-title{flex:1 1 100%;font-family:var(--serif-cn);font-weight:700;
+  font-size:clamp(25px,4.6vw,42px);letter-spacing:.04em;margin:2px 0 0}
+.day-toggle{position:absolute;right:4px;top:0;width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--ink-faint);font-size:20px;line-height:1}
+.day-toggle::after{content:"+"}
+.day-fold[open] .day-toggle::after{content:"−"}
+.day-body{padding-top:clamp(18px,3vh,30px)}
+.day-fold[open] .day-body{animation:dayin .42s cubic-bezier(.22,1,.36,1) both}
+@keyframes dayin{from{opacity:0;transform:translateY(-6px)}}
+/* --- 侧边导航（桌面右竖） --- */
+.side-nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:65;
+  display:flex;flex-direction:column;gap:9px;padding:10px 8px;border-radius:30px;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--paper) 72%,transparent);
+  backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.side-nav button{width:30px;height:30px;border-radius:50%;font-family:var(--spec);font-size:13px;
+  color:var(--ink-soft);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.side-nav button.active{background:var(--teal);color:var(--paper)}
+.side-nav button:hover{color:var(--teal)}
+.side-nav button.active:hover{color:var(--paper)}
+/* --- 音乐按钮 --- */
+.music-btn{position:fixed;top:18px;right:74px;z-index:70;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--paper) 80%,transparent);
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.music-btn .ic-note{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:1.6}
+.music-btn.playing{border-color:var(--teal)}
+.music-btn.playing .ic-note{stroke:var(--teal)}
+.music-btn .eq{display:none;align-items:flex-end;gap:3px;height:16px}
+.music-btn .eq i{width:3px;height:100%;background:var(--teal);border-radius:1px;
+  transform:scaleY(.4);animation:eqb 1s ease-in-out infinite}
+.music-btn .eq i:nth-child(2){animation-delay:.2s}
+.music-btn .eq i:nth-child(3){animation-delay:.4s}
+.music-btn.playing .eq{display:flex}
+.music-btn.playing .ic-note{display:none}
+@keyframes eqb{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+/* --- 响应式 --- */
+@media(max-width:760px){
+  .ovmap-box{aspect-ratio:1000/467;height:auto}
+  .ovmap-box.city-pk{aspect-ratio:900/900}
+  .ovmap-legend span{font-size:12px}
+  .cover{padding-bottom:0;justify-content:flex-start}
+  .cover-mid{flex:none;margin:0;gap:14px}
+  .cover-foot .hint{display:none}
+  .day-toggle{width:40px;height:40px}
+  .side-nav{right:auto;left:50%;transform:translateX(-50%);
+    bottom:calc(12px + env(safe-area-inset-bottom));top:auto;flex-direction:row;
+    padding:6px 10px;gap:6px}
+  .side-nav button{width:40px;height:40px;font-size:12px}
+  .ovmap-tab{min-height:38px}
+  .ending{padding-bottom:120px}
+}
+
+</style>
+</head>
+<body>
+<svg class="grain" aria-hidden="true"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<button class="theme-btn" id="themeBtn" aria-label="切换昼夜配色" title="切换昼夜">
+<svg viewBox="0 0 24 24" id="themeIcon"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+</button>
+<button class="music-btn" id="musicBtn" aria-label="播放或暂停背景音乐" title="背景音乐" type="button">
+<svg class="ic-note" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.4"/><circle cx="16.5" cy="16" r="2.4"/></svg>
+<span class="eq"><i></i><i></i><i></i></span>
+</button>
+<audio id="bgAudio" loop preload="auto" src="assets/music.m4a"></audio>
+<nav class="side-nav" id="sideNav" aria-label="每日快速导航"></nav>
+<main id="app"></main>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片全屏查看">
+  <div class="lb-count" id="lbCount"></div>
+  <button class="lb-btn lb-close" id="lbClose" aria-label="关闭"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一张"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="下一张"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+<script>
+/* ===== 本册数据：以后每趟旅行只改这一整段 ===== */
+var BOOK={
+ meta:{en:"Bangkok × Phuket",title:"曼谷 × 普吉",range:"2026.10.03 — 10.08",days:"6 天 5 晚",authors:"YY & BB"},
+ days:[
+  {d:"D1",date:"10.03",week:"周六",city:"曼谷",title:"金色的城",
+   places:"班德提达早餐 · 大皇宫玉佛寺 · 湄南河摆渡 · Absolute Thai 妆造 · 郑王庙写真 · Preme Pavilion SPA · 拉差达慕泰拳 · 考山路 / 朱拉隆功夜市",
+   story:"飞行六小时，曼谷用一阵潮热和班德提达老板娘的笑脸接住了我们。大皇宫的金色还没看够，年近八十的讲解奶奶已一口气讲了两个多小时——从王朝更迭到华人下南洋，从国王轶事到拜佛‘偷金’，连怎么拍照都替我们想好。穿上泰服才知道，那些端庄的裤子居然开着裆；湄南河的风、突突车的轰鸣、拳场里为中国人掀翻屋顶的欢呼，一路把我们送到考山路。榴莲很糯，7-11 很大，而我们竟在第一晚就忘了付晚饭钱。",
+   bits:[
+    "民宿老板娘超级热情，一直说喜欢中国，早餐很暖",
+    "讲解奶奶快 80 岁，讲了两个多小时，壁画、建筑、怎么拍照都生动有趣，还带我们拜佛‘偷金’",
+    "摆渡船横穿湄南河，河风很舒服",
+    "泰服写真很美，就是露着腿有点尴尬——泰国裤子居然是开裆的",
+    "Preme SPA 手法有力到位、不走过场，全程没有推销",
+    "拳场前两场是中国人表演赛，念到中国人时全场热情到像要掀翻屋顶",
+    "考山路转战朱拉隆功夜市，晚饭忘了付钱，非常尴尬",
+    "吃到了好吃的榴莲，逛了超级大的 7-11"],
+   cover:{src:"assets/d1/cover.jpg",cap:"大皇宫 · 金色的城"},photos:[{src:"assets/d1/p01.jpg",cap:"飞行六小时，旅程开始",shape:"landscape",span:"w-4"},{src:"assets/d1/p02.jpg",cap:"素万那普，一根魔杖般的树枝",shape:"portrait",span:"w-2"},{src:"assets/d1/p03.jpg",cap:"近八十岁的讲解奶奶",shape:"portrait",span:"w-2"},{src:"assets/d1/p04.jpg",cap:"大皇宫，金塔与蓝天",shape:"landscape",span:"w-4"},{src:"assets/d1/p05.jpg",cap:"大皇宫建筑群",shape:"portrait",span:"w-2"},{src:"assets/d1/p06.jpg",cap:"玉佛寺，金色殿宇",shape:"portrait",span:"w-2"},{src:"assets/d1/p07.jpg",cap:"守护神，蓝绿与金",shape:"portrait",span:"w-2"},{src:"assets/d1/p08.jpg",cap:"与王宫卫兵合个影",shape:"portrait",span:"w-2"},{src:"assets/d1/p09.jpg",cap:"拜佛，偷一点金",shape:"landscape",span:"w-4"},{src:"assets/d1/p10.jpg",cap:"郑王庙，主塔阶梯",shape:"portrait",span:"w-2"},{src:"assets/d1/p11.jpg",cap:"郑王庙，主塔全貌",shape:"portrait",span:"w-2"},{src:"assets/d1/p12.jpg",cap:"泰服写真，撑一把伞",shape:"portrait",span:"w-2"},{src:"assets/d1/p13.jpg",cap:"泰服双人照",shape:"landscape",span:"w-4"},{src:"assets/d1/p14.jpg",cap:"Preme SPA，彻底放松",shape:"portrait",span:"w-2"},{src:"assets/d1/p15.jpg",cap:"拉差达慕，为中国人沸腾",shape:"portrait",span:"w-2"},{src:"assets/d1/p16.jpg",cap:"国人拳手出场，全场沸腾",shape:"landscape",span:"w-4"},{src:"assets/d1/p17.jpg",cap:"考山路夜市",shape:"landscape",span:"w-6"}]},
+  {d:"D2",date:"10.04",week:"周日",city:"曼谷 → 普吉",title:"从博物馆到海岛",
+   places:"卧佛寺 · 曼谷博物馆 · 扎度扎周末市场 · 夜航飞普吉",
+   story:"在卧佛寺被一尊巨大的卧佛温柔注视，敲了锣，又把二十铢换成一把一铢钢镚，挨个投进铜钵，听丁零当啷的祈福声。博物馆里的历史比起五千年显得单薄，扎度扎市场却用一场超级大雨把自己变成了水上市场，我们蹚水而过。芒果糯米饭总也吃不够，出租车师傅被我们画了‘回来还坐你车’的大饼，650 铢就从市场绕民宿再到机场。飞抵普吉已是深夜，接机车弄错了位置，全靠善良的出租车小哥帮忙改目的地——某人还差点在机场买了带上不了飞机的防晒。深夜的 7-11，泡面真的很好吃呀！！！",
+   bits:[
+    "卧佛超级大，可以敲锣；20 铢换一把 1 铢钢镚，挨个投钵，丁零当啷",
+    "曼谷博物馆：跟中华五千年比略显单薄，但也蛮好看",
+    "扎度扎周末市场买到好穿的拖鞋",
+    "逛到一半下起超级大雨，市场秒变‘水上市场’",
+    "芒果糯米饭总是吃不够",
+    "跟出租车师傅画大饼，说回程还让他接；650 铢从市场→民宿→机场，便宜极了",
+    "到机场太早开始逛街，某人差点买了上不了飞机的防晒，笑死",
+    "普吉接机车弄错位置，软件没人工、不能改目的地，出租车小哥帮忙弄了半天，善良友好",
+    "深夜 7-11 的泡面，居然很好吃"],
+   cover:{src:"assets/d2/cover.jpg",cap:"卧佛寺 · 金色卧佛"},photos:[{src:"assets/d2/p01.jpg",cap:"巨型卧佛，温柔注视",shape:"portrait",span:"w-2"},{src:"assets/d2/p02.jpg",cap:"卧佛寺廊柱光影",shape:"portrait",span:"w-2"},{src:"assets/d2/p03.jpg",cap:"一排铜钵，投进钢镚",shape:"portrait",span:"w-2"},{src:"assets/d2/p04.jpg",cap:"卧佛寺白塔",shape:"portrait",span:"w-2"},{src:"assets/d2/p05.jpg",cap:"实时翻译，听一段经",shape:"landscape",span:"w-4"},{src:"assets/d2/p06.jpg",cap:"在卧佛寺花园伸展",shape:"portrait",span:"w-2"},{src:"assets/d2/p07.jpg",cap:"模仿药叉的姿势",shape:"portrait",span:"w-2"},{src:"assets/d2/p08.jpg",cap:"博物馆 · 泰国飞天",shape:"portrait",span:"w-2"},{src:"assets/d2/p09.jpg",cap:"博物馆 · 象头神",shape:"portrait",span:"w-2"},{src:"assets/d2/p10.jpg",cap:"微笑佛",shape:"portrait",span:"w-2"},{src:"assets/d2/p11.jpg",cap:"扎度扎周末市场",shape:"landscape",span:"w-4"},{src:"assets/d2/p12.jpg",cap:"好穿的拖鞋",shape:"portrait",span:"w-2"},{src:"assets/d2/p13.jpg",cap:"深夜落地普吉",shape:"landscape",span:"w-4"},{src:"assets/d2/p14.jpg",cap:"善良的出租车小哥",shape:"landscape",span:"w-6"}]},
+  {d:"D3",date:"10.05",week:"周一",city:"普吉",title:"皮皮岛的蓝",
+   places:"海南椰子鸡早餐 · 通塞码头出海 · 维京洞浮潜 · 猴子岛 · 玛雅湾 · 追鲨浮潜 · 徒步观景 · One Chun Cafe · 老城",
+   story:"一碗海南椰子鸡把清晨彻底唤醒，在通塞码头见到赢姐和鹏哥，船一离岸，第一次出海的快乐就满得要溢出来。海水咸得发涩，浮潜时才看清水下原来另有世界；猴子岛上鹏哥逗猴差点被咬，玛雅湾的沙滩上，我们拍到了这趟旅行的人生照片。随后的追鲨浮潜没等来鲨鱼，倒被成群小鱼围住；忘了带涉水鞋，滚烫的水马和硌脚的礁石让我们在水里狼狈挪动，却也在一片波光粼粼里被治愈。徒步时赢姐找到捷径，两小时路一小时登顶，双湾风景值得所有气喘。夜里 One Chun Cafe 的菜好吃到四人想落泪，10 分给 9.8，还默默加了两道。夜晚的普吉岛安静惬意，适合好好逛逛。",
+   bits:[
+    "早餐是海南椰子鸡，没想到这么好吃，一下醒神",
+    "见到赢姐与鹏哥，四人会合",
+    "第一次出海，在船上开心到爆炸",
+    "用蹩脚英语在皮皮岛砍价",
+    "第一次浮潜在维京山洞附近，海水可太咸了，水下世界原来是这样",
+    "猴子岛鹏哥逗猴子，差点被咬",
+    "玛雅湾非常漂亮，在沙滩拍到这次旅行的人生照片",
+    "玛雅湾后还有一站追鲨浮潜，没遇到鲨鱼，倒是有好多小鱼",
+    "遇到好心的中国人，换到 1000 铢，成功购物（没有电子支付真的不便）",
+    "忘带涉水鞋，岸上水马晒得烫脚、水下礁石硌脚，悲惨二人组在水里一点点挪动",
+    "最后一个浮潜点水面清澈、波光粼粼，还有好多小鱼",
+    "徒步时赢姐找到捷径，两小时路一小时走完，观景点名副其实",
+    "One Chun Cafe 晚餐无敌好吃，10 分给 9.8，每道都好吃，还加了 2 个菜，四人感动到哭",
+    "local 二人组带我们逛了老城",
+    "洗衣服时，老帽好像弄丢了"],
+   cover:{src:"assets/d3/cover.jpg",cap:"玛雅湾 · 人生照片"},photos:[{src:"assets/d3/p01.jpg",cap:"出海造型",shape:"portrait",span:"w-2"},{src:"assets/d3/p02.jpg",cap:"坐长尾船出发",shape:"landscape",span:"w-4"},{src:"assets/d3/p03.jpg",cap:"出海四人组",shape:"landscape",span:"w-4"},{src:"assets/d3/p04.jpg",cap:"乘快艇破浪",shape:"portrait",span:"w-2"},{src:"assets/d3/p05.jpg",cap:"海上偶遇海盗船",shape:"landscape",span:"w-4"},{src:"assets/d3/p06.jpg",cap:"目标是星辰大海",shape:"portrait",span:"w-2"},{src:"assets/d3/p07.jpg",cap:"第一次浮潜",shape:"landscape",span:"w-4"},{src:"assets/d3/p08.jpg",cap:"碧绿湛蓝的海水",shape:"landscape",span:"w-4"},{src:"assets/d3/p09.jpg",cap:"猴子岛，逗猴",shape:"landscape",span:"w-4"},{src:"assets/d3/p10.jpg",cap:"鹏哥与猴子",shape:"portrait",span:"w-2"},{src:"assets/d3/p11.jpg",cap:"玛雅湾，跳起来",shape:"landscape",span:"w-4"},{src:"assets/d3/p12.jpg",cap:"通赛湾，长尾船林立",shape:"landscape",span:"w-4"},{src:"assets/d3/p13.jpg",cap:"长尾船与船老板",shape:"landscape",span:"w-4"},{src:"assets/d3/p14.jpg",cap:"观景点，大攀岩时代",shape:"landscape",span:"w-4"},{src:"assets/d3/p15.jpg",cap:"徒步观景，双湾俯瞰",shape:"landscape",span:"w-4"},{src:"assets/d3/p16.jpg",cap:"One Chun Cafe",shape:"landscape",span:"w-4"},{src:"assets/d3/p17.jpg",cap:"夜逛老城",shape:"landscape",span:"w-6"}]},
+  {d:"D4",date:"10.06",week:"周二",city:"普吉",title:"丛林、大象与夜市",
+   places:"大象保护营 · 普吉古城 · 美憬阁入住 · 卡伦海滩日落 · 天皇秀 · 深夜海鲜",
+   story:"去大象营的车程近两小时，本没抱期待，却被一群友善的大家伙彻底打动——做助便零食、喂萝卜甘蔗、看湿漉漉的鼻子灵活卷过手心，再亲手拌一盘木瓜沙拉。重头戏是给大象涂泥巴、洗澡，近得能听见它的呼吸。返程又是目的地搞错的惊魂，加了 200 铢、顶着看不清路的暴雨才回到城里。普吉古城，一场多巴胺寻色之旅，榴莲糯米饭和咖啡把下午泡得松软；美憬阁的服务好得意外，我们走到卡伦海滩，等到一场把海面染透的日落。天皇秀让人面红耳赤，某人‘感动’到打赏，散场后的暴雨里买雨披，大冤种石锤——好在深夜四人重聚，海鲜自由。",
+   bits:[
+    "没看好行程，早下了半小时干等；吸取教训装备带得齐全，车程近两小时",
+    "大象营意外地好，讲解生动，以动物保护为理念",
+    "先给大象做帮助排便的零食，又喂了萝卜、香蕉、甘蔗，鼻子灵活、舌头湿漉漉，是友善的大家伙",
+    "营地教做了两道泰国菜：木瓜沙拉和炒粉，还挺好吃",
+    "重头戏是给大象涂泥巴、洗澡，超级近距离，感觉奇妙",
+    "最后只剩我俩，骑了营地摩托车，工作人员帮忙打车，路上又下起超级大雨",
+    "半路惊魂：睡醒发现越走越远，目的地再次搞错，紧急沟通加了 200 铢才送回",
+    "普吉古城是寻色之旅，建筑五颜六色，多巴胺爆棚；吃了榴莲糯米饭、咖啡",
+    "美憬阁服务超好，迎宾茶好喝，介绍细致，装饰漂亮",
+    "在卡伦海滩看了一场日落，把海面染得通透，超级美好",
+    "天皇秀有点震撼，某些节目让人心思斐然，某些人‘感动’哭了、打赏 100 铢",
+    "散场又下暴雨，等很久买了雨披，大冤种石锤",
+    "深夜四人重聚，海鲜自由，味道还不错"],
+   cover:{src:"assets/d4/cover.jpg",cap:"卡伦海滩 · 日落"},photos:[{src:"assets/d4/p01.jpg",cap:"近两小时车程",shape:"landscape",span:"w-4"},{src:"assets/d4/p02.jpg",cap:"给大象做零食",shape:"portrait",span:"w-2"},{src:"assets/d4/p03.jpg",cap:"喂小象",shape:"portrait",span:"w-2"},{src:"assets/d4/p04.jpg",cap:"热情小象的拥抱",shape:"landscape",span:"w-4"},{src:"assets/d4/p05.jpg",cap:"林子里的大象",shape:"landscape",span:"w-4"},{src:"assets/d4/p06.jpg",cap:"给大象涂泥巴",shape:"portrait",span:"w-2"},{src:"assets/d4/p07.jpg",cap:"给大象洗澡",shape:"landscape",span:"w-4"},{src:"assets/d4/p08.jpg",cap:"半路，下起暴雨",shape:"portrait",span:"w-2"},{src:"assets/d4/p09.jpg",cap:"普吉古城，多巴胺建筑",shape:"landscape",span:"w-4"},{src:"assets/d4/p10.jpg",cap:"店里的吉祥物",shape:"landscape",span:"w-4"},{src:"assets/d4/p11.jpg",cap:"古城蓝拱廊",shape:"landscape",span:"w-4"},{src:"assets/d4/p12.jpg",cap:"古城街景",shape:"landscape",span:"w-4"},{src:"assets/d4/p13.jpg",cap:"青色的拱廊",shape:"landscape",span:"w-4"},{src:"assets/d4/p14.jpg",cap:"美憬阁的欢迎",shape:"landscape",span:"w-4"},{src:"assets/d4/p15.jpg",cap:"美憬阁泳池",shape:"portrait",span:"w-2"},{src:"assets/d4/p16.jpg",cap:"骑摩托",shape:"portrait",span:"w-2"},{src:"assets/d4/p17.jpg",cap:"深夜海鲜自由",shape:"landscape",span:"w-6"}]},
+  {d:"D5",date:"10.07",week:"周三",city:"普吉 → 曼谷",title:"山海之间",
+   places:"美憬阁悬浮早餐 · 卡伦海滩沙滩椅/浮潜 · 泰式按摩 · 山顶大佛 · 查龙寺 · 普吉最后晚餐 · 夜航飞曼谷",
+   story:"在美憬阁醒来，那一筐漂在泳池上的悬浮早餐好看到让人从池中央一路拍到池边，坐下才发现味道平平——好看和好吃，果然难两全。好心的姐姐帮我们延迟退房，海边的日子就彻底 chill 下来：租一张沙滩椅，游泳时捞起一块‘像鱼的木板’，又在沙滩东端的浮潜点追小鱼，代价是手被划了道口子。找钱的虚惊、把人撅成一个圈的正宗按摩、大佛寺的猴子和路边落下的椰子，一路走到查龙寺，等拍完照天才黑，飞机时间已经发紧。普吉最后一顿饭后，我们遇上一个慢到像故意、还想绕路的司机，差点误机；万幸一路狂奔赶上，落地廊曼，接机车师傅又快又帅，我们在车上侃天侃地，从政治模式一路聊到国内的地产经济。",
+   bits:[
+    "悬浮早餐逼格十足，一筐美食漂在水上，从泳池中部拍到池边；开吃才发现并不好吃——好看跟好吃总得占一样",
+    "前台姐姐非常 NICE，帮忙延迟退房",
+    "租了沙滩椅，是 chill 的度假风",
+    "游泳时在海里抓到一条‘鱼一样的木板’，兴冲冲带上岸",
+    "沙滩最东边发现一个浮潜点，也有好多小鱼；结果手被划伤了",
+    "找钱惊魂：昨天怕丢把钱压在箱子最底下，收拾时没注意以为丢了，找了半天，最后在前台开箱才找到",
+    "泰式按摩超级正宗，会把人‘撅起来’，睡得好好的突然整个人成了一个圈",
+    "大佛寺遇到可爱猴子，看到美军航母，还被‘上天’送了一个小椰子",
+    "椰子拿到店门口，老板热心帮忙杀开，结果并不好喝",
+    "查龙寺建筑十分精美，本纠结要不要等日落，拍完照天就黑了",
+    "一看飞机时间有点紧张，赶紧回酒店取行李，先送到吃饭的地方",
+    "拉着箱子走在街上，像芭东红灯区，按摩姐姐们各种招呼",
+    "吃了普吉岛最后一顿晚餐，打车去机场",
+    "笨蛋司机：时间紧让他快点，结果全程最慢、有时还不如摩托车，能过的红绿灯也不过，最后还试图绕路，差点耽误，气得要死、给了差评",
+    "万幸赶上了；落地廊曼机场，和接机师傅一路从中国政治模式聊到房地产",
+    "快捷酒店感觉不错，接机师傅开车很帅，比普吉那个强多了"],
+   cover:{src:"assets/d5/cover.jpg",cap:"悬浮早餐"},photos:[{src:"assets/d5/p01.jpg",cap:"海景房，chill 的早晨",shape:"landscape",span:"w-4"},{src:"assets/d5/p02.jpg",cap:"漂在泳池上的早餐",shape:"landscape",span:"w-4"},{src:"assets/d5/p03.jpg",cap:"泳池双人早餐",shape:"landscape",span:"w-4"},{src:"assets/d5/p04.jpg",cap:"沙滩椅，度假模式",shape:"landscape",span:"w-4"},{src:"assets/d5/p05.jpg",cap:"卡伦海滩漫步",shape:"landscape",span:"w-4"},{src:"assets/d5/p06.jpg",cap:"卡伦海滩",shape:"landscape",span:"w-4"},{src:"assets/d5/p07.jpg",cap:"泳池玩水",shape:"landscape",span:"w-4"},{src:"assets/d5/p08.jpg",cap:"逮到一条“鱼”",shape:"portrait",span:"w-2"},{src:"assets/d5/p09.jpg",cap:"山顶大佛前",shape:"portrait",span:"w-2"},{src:"assets/d5/p10.jpg",cap:"山顶大佛",shape:"portrait",span:"w-2"},{src:"assets/d5/p11.jpg",cap:"互相梳毛的猴群",shape:"landscape",span:"w-4"},{src:"assets/d5/p12.jpg",cap:"思考猴",shape:"landscape",span:"w-4"},{src:"assets/d5/p13.jpg",cap:"查龙寺",shape:"portrait",span:"w-2"},{src:"assets/d5/p14.jpg",cap:"查龙寺全景",shape:"portrait",span:"w-2"},{src:"assets/d5/p15.jpg",cap:"海上的航母",shape:"landscape",span:"w-4"},{src:"assets/d5/p16.jpg",cap:"上天送的椰子",shape:"portrait",span:"w-2"},{src:"assets/d5/p17.jpg",cap:"夜航，热情机长",shape:"portrait",span:"w-2"}]},
+  {d:"D6",date:"10.08",week:"周四",city:"曼谷",title:"告别的一天",
+   places:"仑披尼公园 · 天桥下市场 · 水门大佛寺打卡点 · 暹罗天地 · 夜航回国",
+   story:"最后一天从地铁开始，车厢里‘仑披尼’的播报听起来像四川口音，公园里的大蜥蜴大得让人合照时心惊胆战。街头健身区的杠铃是轮胎做的，墙上却挂满密密麻麻的奖牌；天桥下的市场里，一眼瞥见哈罗共享单车，莫名有点自豪。换上摩托车在城里穿行，风比第一天突突车狂野得多，顺路打卡了水门大佛寺；桥下市场有老华人拉着募捐，捐了十五铢还非要按着合影。慕名去的中餐店被评论骗了，暹罗天地倒是买到心仪的鞋子、香水和一大块榴莲。取行李、赶地铁去机场时，人突然冒冷汗、想吐，硬撑到值机，终于上吐下泻，把上午的小吃全吐了出来。裹着空姐给的两条毯子，在发烧的寒战里熬到快落地才缓过来——泰国之旅，就这样狼狈又难忘地结束了，回家。",
+   bits:[
+    "早起坐地铁去仑披尼公园，地铁‘仑披尼’的播报有点像四川口音",
+    "公园里的大蜥蜴超大，合照时心惊胆战，生怕它突然冲过来咬一口",
+    "偶遇公园街头健身：器械很朴素、杠铃是轮胎做的，但大家练得很好，墙上挂满密密麻麻奖牌——物质环境不是塑造人的第一要素",
+    "天桥下小市场买了果切和咖啡",
+    "意外发现哈罗共享单车，有一种民族自豪感",
+    "仑披尼之后打卡了水门大佛寺；这天还体验摩托车出行，比第一天突突车更狂野",
+    "路过桥下市场，有老华人在募捐，捐了 15 铢、非得按着合照，也是有趣",
+    "慕名去了一家‘盛名’中餐店，点了很多，并不好吃，被评论骗了",
+    "暹罗天地买到心仪已久的鞋子，逛了泡泡玛特、MITH 香水店、买了药",
+    "买到一大块榴莲，好吃",
+    "摩托车回去，用散装英语跟摩的师傅聊天，师傅很热情，介绍沿途大楼和购物中心",
+    "拿上行李、地铁去机场，途中突然想吐、冒冷汗打摆子",
+    "你因为谁把钱拿出来发脾气，没注意到我状态已经很差",
+    "地铁难受一路，硬撑到机场完成值机",
+    "上吐下泻，把上午小吃全吐了，吐到什么都不剩，太惨了",
+    "感觉在发烧，把能穿的衣服都穿上，跟空姐要了两条毯子裹起来",
+    "快落地时终于缓过来，回家啦"],
+   cover:{src:"assets/d6/cover.jpg",cap:"水门寺大佛"},photos:[{src:"assets/d6/p01.jpg",cap:"最后一天",shape:"portrait",span:"w-2"},{src:"assets/d6/p02.jpg",cap:"仑披尼大蜥蜴",shape:"portrait",span:"w-2"},{src:"assets/d6/p03.jpg",cap:"与蜥蜴保持距离",shape:"landscape",span:"w-4"},{src:"assets/d6/p04.jpg",cap:"街头健身，轮胎杠铃",shape:"landscape",span:"w-4"},{src:"assets/d6/p05.jpg",cap:"朴素的器械",shape:"landscape",span:"w-4"},{src:"assets/d6/p06.jpg",cap:"家乡的哈罗",shape:"portrait",span:"w-2"},{src:"assets/d6/p07.jpg",cap:"摩托车，狂野出行",shape:"portrait",span:"w-2"},{src:"assets/d6/p08.jpg",cap:"盛名之下的中餐",shape:"landscape",span:"w-4"},{src:"assets/d6/p09.jpg",cap:"暹罗天地",shape:"landscape",span:"w-4"},{src:"assets/d6/p10.jpg",cap:"泡泡玛特",shape:"landscape",span:"w-4"},{src:"assets/d6/p11.jpg",cap:"暹罗天地的雕塑",shape:"portrait",span:"w-2"},{src:"assets/d6/p12.jpg",cap:"曼谷地铁",shape:"portrait",span:"w-2"},{src:"assets/d6/p13.jpg",cap:"曼谷天际线",shape:"landscape",span:"w-4"},{src:"assets/d6/p14.jpg",cap:"虚弱的我",shape:"landscape",span:"w-4"},{src:"assets/d6/p15.jpg",cap:"募捐一角",shape:"landscape",span:"w-6"}]}
+ ],
+ best:{src:"assets/best.jpg",cap:"旅途最佳"},
+ stats:[
+  {n:"6",label:"天 5 晚"},
+  {n:"2",label:"座城市 · 曼谷 / 普吉"},
+  {n:"4",label:"段飞行"},
+  {n:"4",label:"家酒店"},
+  {n:"21",label:"个景点 · 打卡点",wide:1}
+ ],
+ quotes:[{q:"第一次的陪伴，谢谢您！泰兰德很美，你也是！"}],
+ capsule:{q:"下一次，我们想去……",a:"印尼 · 巴厘岛"},
+ ending:"曼谷的金、普吉的蓝、卡伦海滩那场把海面染透的日落，连同所有的大笑、虚惊和狼狈，都成了想反复翻看的一页。回家了，而我们的下一趟，已经在路上。"
+};
+/* ===== 图标与工具 ===== */
+const ICON_CAM='<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><circle cx="12" cy="13.5" r="3.6"/><path d="M8.2 7l1.4-2.6h4.8L15.8 7"/></svg>';
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function partsX(s){return String(s).split('×').map(x=>x.trim())}
+function joinX(a){return a.length>1?a[0]+'<span class="x">×</span>'+a[1]:a[0]}
+/* ===== 封面 ===== */
+function coverHTML(m,bgSrc){
+ return `<section class="cover">
+  ${bgSrc?`<div class="cover-bg"><img src="${bgSrc}" alt=""></div>`:''}
+  <div class="cover-bg-veil"></div>
+  <div class="kicker">A Travel Memoir<span class="dot">·</span>旅行纪念册</div>
+  <div class="cover-mid">
+   <div class="cover-main">
+    <h1>${joinX(partsX(m.en))}<span class="cn">${joinX(partsX(m.title))}</span></h1>
+    <div class="meta-row"><span class="range">${m.range}</span><span class="tag">${m.days}</span></div>
+   </div>
+   <div class="ovmap">
+    <div class="ovmap-tabs">
+     <button class="ovmap-tab active" type="button" data-city="bk">曼谷 Bangkok</button>
+     <button class="ovmap-tab" type="button" data-city="pk">普吉 Phuket</button>
+    </div>
+    <div class="ovmap-box" id="ovmapBox"></div>
+    <div class="ovmap-legend" id="ovmapLegend"></div>
+   </div>
+  </div>
+  <svg class="wave" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 60c50-42 100-42 150 0s100 42 150 0 80-32 100-6"/></svg>
+  <div class="cover-foot"><div class="authors">${m.authors}</div><div class="cover-couple"><img src="assets/couple.png" alt="YY & BB"></div><div class="hint">向下滑动，开始回忆</div></div>
+ </section>`;
+}
+/* ===== 每天 ===== */
+function photoHTML(p){
+ return `<div class="photo ${p.span||'w-2'} ${p.shape==='landscape'?'landscape':''} ${p.shape==='wide'?'wide':''}" data-photo>
+  <img src="${p.src}" alt="${esc(p.cap||'')}" loading="lazy">${p.cap?`<div class="cap">${p.cap}</div>`:''}</div>`;
+}
+function dayHTML(d,i){
+ const hero=d.cover
+  ?`<div class="hero-slot"><div class="photo w-6 wide" data-photo><img src="${d.cover.src}" alt="${esc(d.cover.cap||d.title)}">${d.cover.cap?`<div class="cap">${d.cover.cap}</div>`:''}</div></div>`
+  :`<div class="hero-slot"><div class="slot hero">${ICON_CAM}<div class="big">${d.title} · 待冲印</div><div class="lab">DAY COVER · 当天封面</div></div></div>`;
+ const story=d.story?`<p class="day-story">${d.story}</p>`
+  :`<p class="story-pending">那天的故事还空着——你随手写几句发我，或我按照片先代拟、由你核对。</p>`;
+ const bits=(d.bits&&d.bits.length)?`<details class="bits"><summary>那天的碎片小事 · ${d.bits.length}</summary><ul>${d.bits.map(x=>`<li>${x}</li>`).join('')}</ul></details>`:'';
+ const places=`<div class="day-places"><b>那天去了</b>${d.places}</div>`;
+ let grid;
+ if(d.photos&&d.photos.length){grid=`<div class="grid">${d.photos.map(photoHTML).join('')}</div>`;}
+ else{grid=`<div class="grid">
+  <div class="slot w-3 landscape">${ICON_CAM}<div class="lab">待冲印 · 横图</div></div>
+  <div class="slot w-3">${ICON_CAM}<div class="lab">待冲印 · 竖图</div></div>
+  <div class="slot w-2">${ICON_CAM}<div class="lab">待冲印</div></div>
+  <div class="slot w-2">${ICON_CAM}<div class="lab">待冲印</div></div>
+  <div class="slot w-2">${ICON_CAM}<div class="lab">待冲印</div></div></div>`;}
+ return `<section class="day" id="day-${i+1}">
+  <details class="day-fold">
+   <summary class="day-summary">
+    <span class="day-d">${d.d}</span><span class="day-date">${d.date} ${d.week}</span><span class="day-city">${d.city}</span>
+    <h3 class="day-title">${d.title}</h3><span class="day-toggle"></span>
+   </summary>
+   <div class="day-body">${hero}${story}${bits}${places}${grid}</div>
+  </details>
+ </section>`;
+}
+/* ===== 万能专栏 ===== */
+function bestHTML(b){return b?`<div class="best" data-photo><img src="${b.src}" alt="${esc(b.cap||'最佳一张')}"><div class="cap">${b.cap||''}</div></div>`
+ :`<div class="slot" style="min-height:340px">${ICON_CAM}<div class="big">最佳一张 · 待冲印</div><div class="lab">挑出这趟最爱的一张照片</div></div>`;}
+function statsHTML(s){return `<div class="stats">${s.map(x=>`<div class="stat${x.wide?' wide':''}"><div class="n">${x.n}</div><div class="label">${x.label}</div></div>`).join('')}</div>`;}
+const SMILES_ROW='<div class="smiles"><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M13 16.5q2-3.2 4 0"/><path d="M23 16.5q2-3.2 4 0"/><path d="M13 23.5q7 8.5 14 0"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><circle cx="15" cy="16" r="1.7" fill="currentColor" stroke="none"/><circle cx="25" cy="16" r="1.7" fill="currentColor" stroke="none"/><path d="M14 23.5q6 5.5 12 0"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><circle cx="15" cy="16" r="1.7" fill="currentColor" stroke="none"/><path d="M23 16q2 2.2 4 0"/><path d="M14 23.5q6 5.5 12 0"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M13 16.5q2-3.2 4 0"/><path d="M23 16.5q2-3.2 4 0"/><path d="M14 23q6 5 12 0"/><path d="M18 24.5v3.6q2 1.8 4 0v-3.6"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M15 18.4C11.7 15.9 11.2 13.7 12.9 12.9C14 12.4 15 13.1 15 14C15 13.1 16 12.4 17.1 12.9C18.8 13.7 18.3 15.9 15 18.4Z"/><path d="M25 18.4C21.7 15.9 21.2 13.7 22.9 12.9C24 12.4 25 13.1 25 14C25 13.1 26 12.4 27.1 12.9C28.8 13.7 28.3 15.9 25 18.4Z"/><path d="M14 23.5q6 5.5 12 0"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><circle cx="15" cy="15.5" r="1.7" fill="currentColor" stroke="none"/><circle cx="25" cy="15.5" r="1.7" fill="currentColor" stroke="none"/><circle cx="20" cy="26" r="3.1"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M10.5 15h8v3.4q-4 1.5-8 0Z" fill="currentColor" stroke="none"/><path d="M21.5 15h8v3.4q-4 1.5-8 0Z" fill="currentColor" stroke="none"/><path d="M18.5 16h3"/><path d="M14.5 26q5.5 2.6 11 0"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M13 16.5q2-3.2 4 0"/><path d="M23 16.5q2-3.2 4 0"/><path d="M14 23.5q6 5.5 12-1.5"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M13 15.5q2 2.4 4 0"/><path d="M23 15.5q2 2.4 4 0"/><path d="M20 28.2C18.1 26.7 17.8 25.3 18.9 24.8C19.6 24.5 20 25 20 25.5C20 25 20.4 24.5 21.1 24.8C22.2 25.3 21.9 26.7 20 28.2Z"/></svg><svg class="smile" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><path d="M13 16.5q2-3.2 4 0"/><path d="M23 16.5q2-3.2 4 0"/><path d="M12.5 22.5q7.5 10 15 0Z"/><path d="M15.2 25.6h9.6"/></svg></div>';
+function quotesHTML(q){
+ if(q&&q.length)return `<div class="quotes">${q.map(x=>`<figure class="quote"><blockquote class="one-line">${x.q}</blockquote>${x.who?`<figcaption>— ${x.who}</figcaption>`:''}</figure>`).join('')}${SMILES_ROW}</div>`;
+ return `<div class="quotes">
+  <figure class="quote"><blockquote style="color:var(--ink-faint);font-weight:400;font-style:italic">（待补充：旅途中印象最深的一句话）</blockquote></figure>
+  <figure class="quote"><blockquote style="color:var(--ink-faint);font-weight:400;font-style:italic">（待补充：最好笑的一个瞬间）</blockquote></figure></div>`;
+}
+function capsuleHTML(c){return `<div class="capsule"><div class="q">${c.q}</div><div class="a ${c.a?'':'empty'}">${c.a||'留给下一次出发前填写'}</div></div>`;}
+function sectionsHTML(B){
+ const sec=(no,h,body)=>`<section class="section"><div class="sec-kicker"><span class="no">${no}</span><h2>${h}</h2></div>${body}</section>`;
+ return sec('01','最佳一张',bestHTML(B.best))+sec('02','数字回顾',statsHTML(B.stats))
+  +sec('03','金句与笑声',quotesHTML(B.quotes))+sec('04','时间胶囊',capsuleHTML(B.capsule));
+}
+function endingHTML(m){
+ return `<section class="ending">
+  <div class="line-word" ${BOOK.ending?'':'style="color:var(--ink-faint);font-weight:500;font-size:.78em"'}>${BOOK.ending||'（这一程的总结，留给你写一句话）'}</div>
+  <div class="fin">To be continued</div><div class="small">${m.range} · ${m.authors}</div></section>`;
+}
+document.getElementById('app').innerHTML=
+ coverHTML(BOOK.meta,BOOK.best?BOOK.best.src:'')+BOOK.days.map((d,i)=>dayHTML(d,i)).join('')+sectionsHTML(BOOK)+endingHTML(BOOK.meta);
+var MP={
+ debtida:{n:"班德提达民宿",lat:13.7563,lng:100.4986},
+ grandpalace:{n:"大皇宫",lat:13.7500,lng:100.4913},
+ watpho:{n:"卧佛寺",lat:13.7466,lng:100.4929},
+ watarun:{n:"郑王庙（黎明寺）",lat:13.7437,lng:100.4889},
+ rajadamnern:{n:"拉差达能拳场",lat:13.7588,lng:100.5099},
+ khaosan:{n:"考山路",lat:13.7586,lng:100.4971},
+ natmuseum:{n:"曼谷国家博物馆",lat:13.7573,lng:100.4905},
+ museumsiam:{n:"暹罗博物馆",lat:13.7444,lng:100.4947},
+ watpaknam:{n:"水门寺（白榄寺）",lat:13.7179,lng:100.4705},
+ yaowarat:{n:"唐人街耀华力路",lat:13.7398,lng:100.5101},
+ asoka:{n:"阿索卡酒店",lat:13.7523,lng:100.5472},
+ jimthompson:{n:"Jim Thompson 故居",lat:13.7473,lng:100.5273},
+ erawan:{n:"四面佛",lat:13.7454,lng:100.5339},
+ siam:{n:"暹罗商圈",lat:13.7463,lng:100.5355},
+ BKK:{n:"素万那普国际机场",lat:13.6900,lng:100.7501},
+ DMK:{n:"廊曼国际机场",lat:13.9126,lng:100.6068},
+ HKT:{n:"普吉国际机场",lat:8.1132,lng:98.3068},
+ courtyard:{n:"普吉镇万怡酒店",lat:7.8849,lng:98.3866},
+ mayabay:{n:"皮皮岛一日游",lat:7.6778,lng:98.7648},
+ oldtown:{n:"普吉古城",lat:7.8854,lng:98.3853},
+ mgallery:{n:"卡伦美憬阁酒店",lat:7.8313,lng:98.2967},
+ hanuman:{n:"Hanuman World 丛林飞跃",lat:7.8380,lng:98.3520},
+ elephantsan:{n:"大象保护营",lat:7.9050,lng:98.3720},
+ bangla:{n:"邦古拉街（芭东）",lat:7.8930,lng:98.2962},
+ karon:{n:"卡伦海滩",lat:7.8265,lng:98.2960},
+ bigbuddha:{n:"山顶大佛",lat:7.8274,lng:98.3126},
+ chalong:{n:"查龙寺",lat:7.8409,lng:98.3364},
+ kata:{n:"卡塔海滩",lat:7.8139,lng:98.2970},
+ spa:{n:"Let's Relax SPA",lat:7.8290,lng:98.2940}
+};
+var MIC={plane:'<svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5C13 2.7 12.3 2 11.5 2S10 2.7 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>',boat:'<svg viewBox="0 0 24 24"><path d="M12 2v4M5 11l1.6 6.2c.2.8.8 1.3 1.6 1.3h7.6c.8 0 1.4-.5 1.6-1.3L19 11M4 11h16l-1.4-2.2H5.4zM12 17.5V21M9 21h6"/></svg>'};
+var D2R=Math.PI/180;
+function mercXY(lat,lng){return [lng*D2R, Math.log(Math.tan(Math.PI/4+lat*D2R/2))];}
+GEO_PK=[[[98.4150,7.9297],[98.4143,7.9122],[98.4267,7.9020],[98.4400,7.9140],[98.4421,7.8839],[98.4309,7.8732],[98.3944,7.8678],[98.4042,7.8095],[98.3879,7.8094],[98.3762,7.8375],[98.3667,7.8396],[98.3450,7.8229],[98.3369,7.7814],[98.3045,7.7615],[98.3034,7.7775],[98.2919,7.7788],[98.2874,7.7891],[98.2982,7.8050],[98.2917,7.8528],[98.2636,7.8905],[98.2828,7.8878],[98.2964,7.9061],[98.2599,7.9354],[98.2823,7.9549],[98.2759,7.9843],[98.2882,7.9875],[98.2928,8.0064],[98.2901,8.0253],[98.2746,8.0374],[98.2754,8.0796],[98.2948,8.0903],[98.3015,8.1083],[98.2839,8.2010],[98.3344,8.1756],[98.3482,8.1207],[98.3673,8.1321],[98.3922,8.1152],[98.3877,8.0877],[98.4065,8.0814],[98.4265,8.0969],[98.4376,8.0915],[98.4298,8.0437],[98.4208,8.0441],[98.4103,8.0216],[98.4210,7.9881],[98.4083,7.9903],[98.3939,7.9733],[98.3980,7.9428],[98.4150,7.9297]],[[98.3869,7.7831],[98.3784,7.7798],[98.3697,7.7809],[98.3587,7.7862],[98.3683,7.7950],[98.3823,7.7917],[98.3869,7.7831]],[[98.4150,7.9297],[98.4173,7.9408],[98.4255,7.9411],[98.4341,7.9441],[98.4383,7.9372],[98.4307,7.9295],[98.4150,7.9297]],[[98.4660,8.0603],[98.4677,8.0489],[98.4587,8.0563],[98.4660,8.0603]]]
+VIEW={
+ bk:{W:1000,H:467,pad:30,latMin:13.735,latMax:13.767,lngMin:100.483,lngMax:100.559},
+ pk:{W:900,H:900,pad:40,latMin:7.805,latMax:7.915,lngMin:98.285,lngMax:98.397}
+}
+EDGE_OV={bk:{DMK:[872,58],BKK:[866,400],watpaknam:[74,384]},pk:{HKT:[200,60],mayabay:[745,798],oldtown:[728,302],spa:[92,690],karon:[150,712]}};
+function makeProj(cfg){
+ var a=mercXY(cfg.latMin,cfg.lngMin),b=mercXY(cfg.latMax,cfg.lngMax);
+ var x0=a[0],x1=b[0],yHi=b[1],yLo=a[1],iw=cfg.W-2*cfg.pad,ih=cfg.H-2*cfg.pad;
+ return function(lat,lng){var m=mercXY(lat,lng);
+  return [cfg.pad+(m[0]-x0)/(x1-x0)*iw, cfg.pad+(yHi-m[1])/(yHi-yLo)*ih];};
+}
+function ringPath(ring,P){
+ return 'M'+ring.map(function(q){var xy=P(q[1],q[0]);return xy[0].toFixed(1)+' '+xy[1].toFixed(1);}).join(' L ')+' Z';
+}
+RIVER=[[13.766,100.494],[13.760,100.490],[13.752,100.4915],[13.746,100.493],[13.740,100.500],[13.736,100.507]]
+function smooth(pts){
+  if(pts.length<2)return '';
+  var d='M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);
+  for(var i=0;i<pts.length-1;i++){
+    var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||pts[i+1];
+    var c1x=p1[0]+(p2[0]-p0[0])/6,c1y=p1[1]+(p2[1]-p0[1])/6;
+    var c2x=p2[0]-(p3[0]-p1[0])/6,c2y=p2[1]-(p3[1]-p1[1])/6;
+    d+=' C'+c1x.toFixed(1)+' '+c1y.toFixed(1)+' '+c2x.toFixed(1)+' '+c2y.toFixed(1)+' '+p2[0].toFixed(1)+' '+p2[1].toFixed(1);
+  }
+  return d;
+}
+DASH=[6,7]
+BK_LINES=[
+ {c:'var(--c1)',ids:['debtida','grandpalace','watpho','watarun','rajadamnern','khaosan','debtida']},
+ {c:'var(--c2)',ids:['debtida','natmuseum','museumsiam']},
+ {c:'var(--c2)',ids:['museumsiam','watpaknam'],dash:DASH},
+ {c:'var(--c2)',ids:['watpaknam','yaowarat'],dash:DASH},
+ {c:'var(--c2)',ids:['yaowarat','BKK'],dash:DASH},
+ {c:'var(--c5)',ids:['DMK','asoka'],dash:DASH},
+ {c:'var(--c6)',ids:['asoka','jimthompson','erawan','siam']},
+ {c:'var(--c6)',ids:['siam','BKK'],dash:DASH}
+]
+PK_LINES=[
+ {c:'var(--c2)',ids:['HKT','courtyard'],dash:DASH},
+ {c:'var(--c3)',ids:['courtyard','mayabay'],dash:[8,8]},
+ {c:'var(--c4)',ids:['courtyard','oldtown','mgallery','hanuman','mgallery','elephantsan','mgallery','bangla','mgallery']},
+ {c:'var(--c5)',ids:['mgallery','karon','bigbuddha','chalong','kata','spa']},
+ {c:'var(--c5)',ids:['spa','HKT'],dash:DASH}
+]
+AIRPORTS={BKK:1,DMK:1,HKT:1}
+HOTEL_COLOR={debtida:'var(--c1)',courtyard:'var(--c2)',mgallery:'var(--c4)',asoka:'var(--c5)'}
+MINOR={spa:1,karon:1,mayabay:1}
+LABEL_ADJ={
+ debtida:[14,6,'start'],grandpalace:[-12,-6,'end'],watpho:[-12,6,'end'],
+ watarun:[0,26,'middle'],natmuseum:[0,-18,'middle'],museumsiam:[12,18,'start'],
+ khaosan:[0,-18,'middle'],rajadamnern:[13,-8,'start'],yaowarat:[13,-8,'start'],
+ asoka:[13,-8,'start'],jimthompson:[-14,-6,'end'],erawan:[12,18,'start'],
+ siam:[12,-10,'start'],BKK:[-16,-8,'end'],DMK:[-16,-8,'end'],watpaknam:[16,22,'start'],
+ courtyard:[0,-16,'middle'],oldtown:[-10,20,'end'],elephantsan:[0,-14,'middle'],
+ bangla:[0,-14,'middle'],hanuman:[14,14,'start'],mgallery:[-10,-14,'end'],
+ bigbuddha:[16,2,'start'],kata:[0,20,'middle'],chalong:[10,-12,'start'],
+ mayabay:[0,0,'middle'],HKT:[0,30,'middle']
+};
+function marker(xy,pid,color){
+  var x=xy[0],y=xy[1],s='';
+  if(AIRPORTS[pid]){
+    s+='<g class="mp" data-nav="'+pid+'"><circle class="mp-hit" cx="'+x+'" cy="'+y+'" r="20" fill="transparent"/>';
+    s+='<rect x="'+(x-13)+'" y="'+(y-13)+'" width="26" height="26" rx="7" fill="var(--ink-soft)" opacity=".88"/>';
+    s+='<g transform="translate('+(x-9)+','+(y-9)+') scale(.78)"><path d="M21 16v-2l-8-5V3.5C13 2.7 12.3 2 11.5 2S10 2.7 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" fill="#fff"/></g></g>';
+    return s;
+  }
+  if(HOTEL_COLOR[pid]){
+    s+='<g class="mp" data-nav="'+pid+'"><circle class="mp-hit" cx="'+x+'" cy="'+(y-7)+'" r="18" fill="transparent"/>';
+    s+='<line x1="'+x+'" y1="'+(y+2)+'" x2="'+x+'" y2="'+(y-22)+'" stroke="'+color+'" stroke-width="2.6" stroke-linecap="round"/>';
+    s+='<path d="M'+x+' '+(y-22)+' L'+(x+17)+' '+(y-17)+' L'+x+' '+(y-12)+' Z" fill="'+color+'"/>';
+    s+='<circle cx="'+x+'" cy="'+(y+2)+'" r="4.5" fill="var(--surface)" stroke="'+color+'" stroke-width="2.4"/></g>';
+    return s;
+  }
+  s+='<g class="mp" data-nav="'+pid+'"><circle class="mp-hit" cx="'+x+'" cy="'+y+'" r="17" fill="transparent"/>';
+  s+='<circle cx="'+x+'" cy="'+y+'" r="6.2" fill="var(--surface)" stroke="'+color+'" stroke-width="3"/></g>';
+  return s;
+}
+function labelAt(xy,pid,a){
+  return '<text x="'+(xy[0]+a[0])+'" y="'+(xy[1]+a[1])+'" text-anchor="'+a[2]+'" class="map-lbl" data-pid="'+pid+'">'+MP[pid].n+'</text>';
+}
+function label(xy,pid){return labelAt(xy,pid,LABEL_ADJ[pid]||[12,4,'start']);}
+function compass(x,y){
+  return '<g opacity=".7"><circle cx="'+x+'" cy="'+y+'" r="20" fill="none" stroke="var(--line)" stroke-width="1.6"/>'+
+  '<path d="M'+x+' '+(y-15)+' L'+(x+5)+' '+y+' L'+x+' '+(y+15)+' L'+(x-5)+' '+y+' Z" fill="var(--accent)"/>'+
+  '<text x="'+x+'" y="'+(y-25)+'" text-anchor="middle" class="map-n">N</text></g>';
+}
+function icoAt(icSvg,x,y,size,fill){
+ return '<svg x="'+x+'" y="'+y+'" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="'+fill+'">'+icSvg.replace(/<svg[^>]*>/,"").replace("</svg>","")+'</svg>';
+}
+function flyMarks(city,C){
+ var F=city==='bk'?[
+   {at:[948,350],txt:'10.3 北京飞来',id:'BKK',ic:MIC.plane},
+   {at:[948,420],txt:'10.9 飞返北京',id:'BKK',ic:MIC.plane},
+   {at:[948,40],txt:'10.7 普吉飞来',id:'DMK',ic:MIC.plane}
+ ]:[
+   {at:[92,50],txt:'10.4 曼谷飞来',id:'HKT',ic:MIC.plane},
+   {at:[330,50],txt:'10.7 飞返曼谷',id:'HKT',ic:MIC.plane},
+   {at:[745,798],txt:'皮皮岛 · 玛雅湾',id:'mayabay',ic:MIC.boat,boat:1}
+ ];
+ var s='<g>';
+ F.forEach(function(f){
+   var p0=C(f.id);
+   s+='<path d="M'+p0[0].toFixed(0)+' '+p0[1].toFixed(0)+' L'+f.at[0]+' '+f.at[1]+'" stroke="var(--map-fly)" stroke-width="2.2" stroke-dasharray="4 6" fill="none" opacity=".82"/>';
+   s+=icoAt(f.ic,f.at[0]-11,f.at[1]-11,22,'var(--map-fly)');
+   if(f.boat)s+='<text x="'+(f.at[0]+15)+'" y="'+(f.at[1]+5)+'" class="map-flytxt" text-anchor="start">'+f.txt+'</text>';
+   else s+='<text x="'+f.at[0]+'" y="'+(f.at[1]+27)+'" class="map-flytxt" text-anchor="middle">'+f.txt+'</text>';
+ });
+ return s+'</g>';
+}
+function lcolor(lines,id){
+  for(var i=0;i<lines.length;i++){if(lines[i].ids.indexOf(id)>=0)return lines[i].c;}
+  return 'var(--accent)';
+}
+function cityMap(city){
+  var cfg=VIEW[city],P=makeProj(cfg),edge=EDGE_OV[city]||{};
+  function C(id){if(edge[id])return edge[id].slice();var p=MP[id];return P(p.lat,p.lng);}
+  var lines=city==='bk'?BK_LINES:PK_LINES;
+  var ids={};lines.forEach(function(l){l.ids.forEach(function(id){ids[id]=1;});});
+  var s='<svg viewBox="0 0 '+cfg.W+' '+cfg.H+'" role="img" aria-label="'+(city==='bk'?'曼谷':'普吉')+'路线图">';
+  s+='<rect x="2" y="2" width="'+(cfg.W-4)+'" height="'+(cfg.H-4)+'" rx="16" fill="'+(city==='pk'?'var(--sea)':'var(--map-bg)')+'"/>';
+  if(city==='pk'){
+    s+='<defs><radialGradient id="pkFade" cx="0.5" cy="0.47" r="0.8"><stop offset="0.58" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient><mask id="pkLandMask"><rect x="0" y="0" width="900" height="900" fill="url(#pkFade)"/></mask></defs>';
+    GEO_PK.forEach(function(r){s+='<path d="'+ringPath(r,P)+'" fill="var(--land)" stroke="var(--coast)" stroke-width="1.6" mask="url(#pkLandMask)"/>';});
+    var mb=edge.mayabay;
+    s+='<ellipse cx="'+mb[0]+'" cy="'+mb[1]+'" rx="24" ry="14" fill="var(--land)" stroke="var(--coast)" stroke-width="1.4"/>';
+  }else{
+    s+='<path d="'+smooth(RIVER.map(function(q){return P(q[0],q[1]);}))+'" fill="none" stroke="var(--river)" stroke-width="10" opacity=".5" stroke-linecap="round"/>';
+  }
+  s+=flyMarks(city,C);
+  s+='<g>';
+  lines.forEach(function(l){if(!l.dash){var gp=l.ids.map(C);
+    s+='<path d="'+smooth(gp)+'" fill="none" stroke="'+l.c+'" stroke-width="9" opacity=".13" stroke-linecap="round" stroke-linejoin="round"/>';}});
+  lines.forEach(function(l){var pp=l.ids.map(C);
+    s+='<path d="'+smooth(pp)+'" fill="none" stroke="'+l.c+'" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".92" '+(l.dash?'stroke-dasharray="'+l.dash.join(' ')+'"':'')+'/>';});
+  s+='</g><g>';
+  Object.keys(ids).forEach(function(id){if(id!=='mayabay')s+=marker(C(id),id,HOTEL_COLOR[id]||lcolor(lines,id));});
+  s+='</g><g class="map-lbls">';
+  Object.keys(ids).forEach(function(id){if(!MINOR[id])s+=label(C(id),id);});
+  s+='</g>'+compass(cfg.W-46,48)+'</svg>';
+  return s;
+}
+/* ===== 封面双城手绘总览图：初始化 ===== */
+(function(){
+ var box=document.getElementById('ovmapBox');
+ box.innerHTML='<div id="omb-bk">'+cityMap('bk')+'</div><div id="omb-pk" style="display:none">'+cityMap('pk')+'</div>';
+ var LD=[['c1','D1 · 10.03'],['c2','D2 · 10.04'],['c3','D3 · 10.05'],
+         ['c4','D4 · 10.06'],['c5','D5 · 10.07'],['c6','D6 · 10.08']];
+ document.getElementById('ovmapLegend').innerHTML=LD.map(function(x){
+  return '<span><i style="background:var(--'+x[0]+')"></i>'+x[1]+'</span>';}).join('');
+ document.querySelectorAll('.ovmap-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+   document.querySelectorAll('.ovmap-tab').forEach(function(x){x.classList.remove('active');});
+   tab.classList.add('active');
+   var c=tab.getAttribute('data-city');
+   document.getElementById('ovmapBox').classList.toggle('city-pk',c==='pk');
+   document.getElementById('omb-bk').style.display=c==='bk'?'block':'none';
+   document.getElementById('omb-pk').style.display=c==='pk'?'block':'none';
+  });
+ });
+})();
+
+/* ===== 每日侧边导航 ===== */
+(function(){
+ var sn=document.getElementById('sideNav');
+ BOOK.days.forEach(function(d,i){
+  var b=document.createElement('button');b.type='button';b.textContent=d.d;
+  b.title=d.date+' '+d.week+' · '+d.title;b.setAttribute('data-day',i);
+  b.addEventListener('click',function(){jumpDay(i);});
+  sn.appendChild(b);
+ });
+ var btns=sn.querySelectorAll('button');
+ function setActive(i){
+  btns.forEach(function(x){x.classList.remove('active');});
+  var b=sn.querySelector('[data-day="'+i+'"]');if(b)b.classList.add('active');
+ }
+ window.jumpDay=function(i){
+  var sec=document.getElementById('day-'+(i+1));if(!sec)return;
+  var det=sec.querySelector('.day-fold');if(det)det.open=true;
+  setActive(i);
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
+ };
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){
+   es.forEach(function(e){
+    if(e.isIntersecting){setActive(parseInt(e.target.id.replace('day-',''),10)-1);}
+   });
+  },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+  document.querySelectorAll('.day').forEach(function(s){io.observe(s);});
+ }
+})();
+
+/* ===== 背景音乐（点击播放，不自动） ===== */
+(function(){
+  var audio=document.getElementById('bgAudio'),btn=document.getElementById('musicBtn');
+  function tryPlay(){var p=audio.play();if(p&&p.catch)p.catch(function(){arm();});}
+  var armed=false;
+  function arm(){
+   if(armed)return;armed=true;
+   var EV=['pointerdown','touchstart','keydown'];
+   function go(e){
+    if(e.target&&e.target.closest&&e.target.closest('#musicBtn'))return;
+    EV.forEach(function(t){window.removeEventListener(t,go);});
+    tryPlay();
+   }
+   EV.forEach(function(t){window.addEventListener(t,go,{passive:true});});
+  }
+  btn.addEventListener('click',function(e){
+   e.stopPropagation();
+   if(audio.paused||audio.ended){tryPlay();}else{audio.pause();}
+  });
+  audio.addEventListener('play',function(){btn.classList.add('playing');btn.title='点击关闭音乐';});
+  audio.addEventListener('pause',function(){btn.classList.remove('playing');btn.title='播放背景音乐';});
+  tryPlay();
+ })();
+
+/* ===== 照片灯箱 ===== */
+var gallery=[],cur=0;
+document.querySelectorAll('[data-photo]').forEach(function(el){
+ var img=el.querySelector('img'); if(!img)return;
+ var capEl=el.querySelector('.cap');
+ var item={src:img.src,cap:capEl?capEl.textContent:(img.alt||'')};
+ var idx=gallery.push(item)-1;
+ el.addEventListener('click',function(){openLB(idx);});
+});
+var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),
+ lbCap=document.getElementById('lbCap'),lbCount=document.getElementById('lbCount');
+var reduceMove=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function openLB(i){cur=i;lbImg.src=gallery[i].src;lbCap.textContent=gallery[i].cap||'';
+ lbCount.textContent=(i+1)+' / '+gallery.length;lb.classList.add('open');document.body.style.overflow='hidden';
+ lbImg.style.transition='';lbImg.style.transform='';lbImg.style.opacity='1';
+ if(!reduceMove){try{lbImg.animate([{opacity:0},{opacity:1}],{duration:200});}catch(e){}}}
+function closeLB(){lb.classList.remove('open');document.body.style.overflow='';
+ lbDrag=false;lbImg.style.transition='';lbImg.style.transform='';lbImg.style.opacity='1';}
+function step(d){if(!gallery.length)return;cur=(cur+d+gallery.length)%gallery.length;openLB(cur);}
+document.getElementById('lbClose').addEventListener('click',closeLB);
+document.getElementById('lbPrev').addEventListener('click',function(){step(-1);});
+document.getElementById('lbNext').addEventListener('click',function(){step(1);});
+lb.addEventListener('click',function(e){if(e.target===lb)closeLB();});
+document.addEventListener('keydown',function(e){
+ if(!lb.classList.contains('open'))return;
+ if(e.key==='Escape')closeLB();else if(e.key==='ArrowLeft')step(-1);else if(e.key==='ArrowRight')step(1);});
+/* 左右滑动 / 鼠标拖拽切换（两侧按钮保留；move/up 走 document，无需捕获） */
+lb.style.touchAction='pan-y';
+lbImg.draggable=false;
+lbImg.addEventListener('dragstart',function(e){e.preventDefault();});
+var sx=0,sdx=0,lbDrag=false;
+lb.addEventListener('pointerdown',function(e){
+ if(e.target.closest&&e.target.closest('.lb-btn'))return;
+ lbDrag=true;sx=e.clientX;sdx=0;lbImg.style.transition='none';
+ e.preventDefault();
+});
+document.addEventListener('pointermove',function(e){
+ if(!lbDrag)return;
+ sdx=e.clientX-sx;
+ lbImg.style.transform='translateX('+sdx+'px)';
+ lbImg.style.opacity=String(Math.max(0.5,1-Math.abs(sdx)/(lb.clientWidth||1)));
+});
+function lbEnd(){
+ if(!lbDrag)return;lbDrag=false;
+ var w=lb.clientWidth||1,th=Math.max(48,w*0.14),dir=0;
+ if(sdx>th)dir=-1;else if(sdx<-th)dir=1;
+ lbImg.style.transition='transform .2s ease,opacity .2s ease';
+ if(dir){lbImg.style.transform='translateX('+(dir>0?-w*0.6:w*0.6)+'px)';lbImg.style.opacity='0';
+  setTimeout(function(){step(dir);},170);}
+ else{lbImg.style.transform='';lbImg.style.opacity='1';}
+}
+document.addEventListener('pointerup',lbEnd);
+document.addEventListener('pointercancel',function(){lbDrag=false;lbImg.style.transition='';lbImg.style.transform='';lbImg.style.opacity='1';});
+/* ===== 昼夜配色 ===== */
+var rootEl=document.documentElement,btn=document.getElementById('themeBtn'),icon=document.getElementById('themeIcon');
+var MOON='<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>';
+var SUN='<circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/>';
+function setTheme(t){rootEl.setAttribute('data-theme',t);try{localStorage.setItem('mem-theme',t);}catch(e){}
+ icon.innerHTML=t==='dark'?SUN:MOON;}
+var saved=null;try{saved=localStorage.getItem('mem-theme');}catch(e){}
+setTheme(saved||'light');
+btn.addEventListener('click',function(){setTheme(rootEl.getAttribute('data-theme')==='dark'?'light':'dark');});
+</script>
+</body>
+</html>
